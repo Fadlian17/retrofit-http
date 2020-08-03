@@ -7,18 +7,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.util.List;
-
 public class MainApplication {
     public static void main(String[] args) {
         UserClient.client(
                 UserService.class,
-                "https://reqres.in/api/users/")
+                "https://reqres.in/")
                 .getUser(2)
                 .enqueue(new Callback<>() {
                     @Override
-                    public void onResponse(Call<List<UserModel>> call,
-                                           Response<List<UserModel>> response) {
+                    public void onResponse(Call<UserModel> call,
+                                           Response<UserModel> response) {
                         if (response.code() >= 200 & response.code() <= 299) {
                             System.out.println(new Gson().toJson(response.body()));
                         } else {
@@ -27,8 +25,9 @@ public class MainApplication {
                         }
                     }
 
+
                     @Override
-                    public void onFailure(Call<List<UserModel>> call, Throwable t) {
+                    public void onFailure(Call<UserModel> call, Throwable t) {
                         System.out.println(t.getMessage());
                     }
                 });

@@ -2,7 +2,7 @@ package http.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DataItem{
+public class Data{
 
 	@SerializedName("last_name")
 	private String lastName;
