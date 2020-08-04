@@ -2,6 +2,7 @@ package http.services;
 
 //model
 
+import http.models.one.PostUserModel;
 import http.models.one.UserModel;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -22,7 +23,7 @@ public interface UserService {
     //post user
     @Headers({"Content-type: application/json"})
     @POST("users")
-    Call<ResponseBody> postUser(@Field("name") String name, @Field("job") String job);
+    Call<PostUserModel> addUser(@Body PostUserModel post);
 
     @FormUrlEncoded
     @PUT("users/{id}")

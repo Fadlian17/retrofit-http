@@ -1,8 +1,10 @@
 import com.google.gson.Gson;
 import http.clients.UserClient;
 
+import http.models.one.PostUserModel;
 import http.models.one.UserModel;
 import http.services.UserService;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,28 +60,37 @@ public class NumberOneApplication {
                     }
                 });
 
-//        System.out.println("---Post Data User---");
-//        // post dataa
-//        PostUserModel post = new PostUserModel();
-//        post.setName("Fadli");
-//        post.setJob("Developer");
-//        UserClient.client(UserService.class, "https://reqres.in/")
-//                .postUser(post);
-//                .enqueue(new Callback<ResponseBody>() {
-//                    @Override
-//                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                        if (response.code() >= 200 & response.code() < 300){
-//                            System.out.println(new Gson().toJson(response.body()));
-//                        }else {
-//                            System.out.println("Error response code " + response.errorBody());
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                        System.out.println(t.getMessage());
-//                    }
-//                });
+        System.out.println("---Post Data User---");
+        // post data
+        PostUserModel add = new PostUserModel();
+        add.setName("Fadlian");
+        add.setJob("leader");
+        UserClient.client(
+                UserService.class,
+                "https://reqres.in/api/")
+                .addUser(add)
+                .enqueue(new Callback<>() {
+                    @Override
+                    public void onResponse(Call<PostUserModel> call,
+                                           Response<PostUserModel> response) {
+                        System.out.println("Body Add User");
+                        if (response.code() >= 200 & response.code() <= 299) {
+                            System.out.println(new Gson().toJson(response.body()));
+                        } else {
+                            System.out.println("Maaf response gagal dengan kode " +
+                                    response.code());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<PostUserModel> call, Throwable t) {
+                        System.out.println(t.getMessage());
+                    }
+                });
+
+
+
+
 
     }
 }
