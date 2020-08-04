@@ -2,6 +2,8 @@ import com.google.gson.Gson;
 import http.clients.UserClient;
 
 import http.models.one.PostUserModel;
+import http.models.one.UpdateUserModel;
+import http.models.one.UserIdModel;
 import http.models.one.UserModel;
 import http.services.UserService;
 import okhttp3.ResponseBody;
@@ -20,7 +22,7 @@ public class NumberOneApplication {
                 .enqueue(new Callback<>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                        System.out.println("---GET All USER---");
+                        System.out.println("---GET All USER---\n");
                         if (response.code() >= 200 & response.code() <= 299) {
                             System.out.println(new Gson().toJson(response.body()));
                         } else {
@@ -43,8 +45,8 @@ public class NumberOneApplication {
                 .getUserId(2)
                 .enqueue(new Callback<>() {
                     @Override
-                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                        System.out.println("---GET USER BY ID---");
+                    public void onResponse(Call<UserIdModel> call, Response<UserIdModel> response) {
+                        System.out.println("---GET USER BY ID---\n");
                         if (response.code() >= 200 & response.code() <= 299) {
                             System.out.println(new Gson().toJson(response.body()));
                         } else {
@@ -55,25 +57,25 @@ public class NumberOneApplication {
 
 
                     @Override
-                    public void onFailure(Call<UserModel> call, Throwable t) {
+                    public void onFailure(Call<UserIdModel> call, Throwable t) {
                         System.out.println(t.getMessage());
                     }
                 });
 
-        System.out.println("---Post Data User---");
         // post data
+        PostUserModel post = new PostUserModel();
+        post.setName("Fadlian");
+        post.setJob("leader");
         PostUserModel add = new PostUserModel();
-        add.setName("Fadlian");
-        add.setJob("leader");
         UserClient.client(
                 UserService.class,
                 "https://reqres.in/api/")
-                .addUser(add)
+                .PostUser(add)
                 .enqueue(new Callback<>() {
                     @Override
                     public void onResponse(Call<PostUserModel> call,
                                            Response<PostUserModel> response) {
-                        System.out.println("Body Add User");
+                        System.out.println("---Post User---\n");
                         if (response.code() >= 200 & response.code() <= 299) {
                             System.out.println(new Gson().toJson(response.body()));
                         } else {
@@ -89,8 +91,59 @@ public class NumberOneApplication {
                 });
 
 
+        //update users
+
+        UpdateUserModel update = new UpdateUserModel();
+        update.setName("Fadlian Alfansyah");
+        update.setJob("Developer Android");
+        UserClient.client(
+                UserService.class,
+                "https://reqres.in/api/")
+                .updateUser(1,update)
+                .enqueue(new Callback<>() {
+                    @Override
+                    public void onResponse(Call<UpdateUserModel> call,
+                                           Response<UpdateUserModel> response) {
+                        System.out.println("---Update USER BY ID---");
+                        if (response.code() >= 200 & response.code() <= 299) {
+                            System.out.println(new Gson().toJson(response.body()));
+                        } else {
+                            System.out.println("Maaf response gagal dengan kode " +
+                                    response.code());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UpdateUserModel> call, Throwable t) {
+                        System.out.println(t.getMessage());
+                    }
+                });
+
+        //delete users
+        var idUser = 1;
+        UserClient.client(
+                UserService.class,
+                "https://reqres.in/api/")
+                .deleteUser(idUser)
+                .enqueue(new Callback<>() {
+                    @Override
+                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                        System.out.println("---Delete USER BY ID---\n");
+                        if (response.code() >= 200 & response.code() <= 299) {
+//                            System.out.println(new Gson().toJson(response.body()));
+                            System.out.println("user dengan id "+idUser+"telah terhapus");
+                        } else {
+                            System.out.println("Maaf response gagal dengan kode " +
+                                    response.code());
+                        }
+                    }
 
 
+                    @Override
+                    public void onFailure(Call<UserModel> call, Throwable t) {
+                        System.out.println(t.getMessage());
+                    }
+                });
 
     }
 }

@@ -21,18 +21,15 @@ public interface TodoService {
     Call<TodoModel> getTodoId(@Path("id") int id);
 
     //post user
-    @FormUrlEncoded
-    @POST("todos")
-    Call<ResponseBody> postTodo(@Field("task") String task);
+    @Headers({"Content-type: application/json"})
+    @POST("api/v1/todos")
+    Call<DataItem> addTodo(@Body DataItem add);
 
-    @FormUrlEncoded
-    @PUT("todos/{id}")
-    Call<TodoModel> updateTodo(@Path("id") int id, @Field("task") String task, @Field("status") String status);
 
-    @FormUrlEncoded
-    @PATCH("todos/{id}")
-    Call<TodoModel> patchTodo(@Path("id") int id, @Field("task") String task, @Field("status") String status);
+    @Headers({"Content-type: application/json"})
+    @PUT("api/v1/todos/{id}")
+    Call<DataItem> updateTodo(@Path("id") int id, @Body DataItem update);
 
-    @DELETE("todos/{id}")
+    @DELETE("api/v1/todos/{id}")
     Call<TodoModel> deleteTodo(@Path("id") int id);
 }

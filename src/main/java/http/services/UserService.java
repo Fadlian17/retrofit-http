@@ -3,6 +3,8 @@ package http.services;
 //model
 
 import http.models.one.PostUserModel;
+import http.models.one.UpdateUserModel;
+import http.models.one.UserIdModel;
 import http.models.one.UserModel;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -18,16 +20,17 @@ public interface UserService {
 
     //single
     @GET("users/{id}")
-    Call<UserModel> getUserId(@Path("id") int id);
+    Call<UserIdModel> getUserId(@Path("id") int id);
 
     //post user
     @Headers({"Content-type: application/json"})
     @POST("users")
-    Call<PostUserModel> addUser(@Body PostUserModel post);
+    Call<PostUserModel> PostUser(@Body PostUserModel post);
 
-    @FormUrlEncoded
+
+    @Headers({"Content-type: application/json"})
     @PUT("users/{id}")
-    Call<UserModel> updateUser(@Path("id") int id, @Field("name") String name, @Field("job") String job);
+    Call<UpdateUserModel> updateUser(@Path("id") int id, @Body UpdateUserModel update);
 
     @FormUrlEncoded
     @PATCH("users/{id}")

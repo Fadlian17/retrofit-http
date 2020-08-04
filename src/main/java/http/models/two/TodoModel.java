@@ -13,4 +13,16 @@ public class TodoModel{
 
 	@SerializedName("status")
 	private boolean status;
+
+	public List<DataItem> getData(){
+		return data;
+	}
+
+	public String getMessage(){
+		return message;
+	}
+
+	public boolean isStatus(){
+		return status;
+	}
 }
