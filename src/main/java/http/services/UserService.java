@@ -1,20 +1,38 @@
 package http.services;
 
 //model
-import http.models.UserModel;
-import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
 
-import java.util.List;
+import http.models.one.UserModel;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.http.*;
 
 
 public interface UserService {
-//    //list
-//    @GET("api/users/{id}")
-//    Call<List<UserModel> getUser(@Path("id") int id);
+
+    //all
+    @GET("users")
+    Call<UserModel> getUser();
+
 
     //single
-    @GET("api/users/{id}")
-    Call<UserModel> getUser(@Path("id") int id);
+    @GET("users/{id}")
+    Call<UserModel> getUserId(@Path("id") int id);
+
+    //post user
+    @Headers({"Content-type: application/json"})
+    @POST("users")
+    Call<ResponseBody> postUser(@Field("name") String name, @Field("job") String job);
+
+    @FormUrlEncoded
+    @PUT("users/{id}")
+    Call<UserModel> updateUser(@Path("id") int id, @Field("name") String name, @Field("job") String job);
+
+    @FormUrlEncoded
+    @PATCH("users/{id}")
+    Call<UserModel> patchUser(@Path("id") int id, @Field("name") String name, @Field("job") String job);
+
+    @DELETE("users/{id}")
+    Call<UserModel> deleteUser(@Path("id") int id);
+
 }

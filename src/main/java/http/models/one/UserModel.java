@@ -1,9 +1,9 @@
-package http.models;
+package http.models.one;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class ListUserModel{
+public class UserModel{
 
 	@SerializedName("per_page")
 	private int perPage;
@@ -22,28 +22,4 @@ public class ListUserModel{
 
 	@SerializedName("total_pages")
 	private int totalPages;
-
-	public int getPerPage(){
-		return perPage;
-	}
-
-	public int getTotal(){
-		return total;
-	}
-
-	public Ad getAd(){
-		return ad;
-	}
-
-	public List<DataItem> getData(){
-		return data;
-	}
-
-	public int getPage(){
-		return page;
-	}
-
-	public int getTotalPages(){
-		return totalPages;
-	}
 }

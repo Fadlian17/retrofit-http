@@ -1,8 +1,8 @@
-package http.models;
+package http.models.one;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Data{
+public class DataItem{
 
 	@SerializedName("last_name")
 	private String lastName;
@@ -18,24 +18,4 @@ public class Data{
 
 	@SerializedName("email")
 	private String email;
-
-	public String getLastName(){
-		return lastName;
-	}
-
-	public int getId(){
-		return id;
-	}
-
-	public String getAvatar(){
-		return avatar;
-	}
-
-	public String getFirstName(){
-		return firstName;
-	}
-
-	public String getEmail(){
-		return email;
-	}
 }

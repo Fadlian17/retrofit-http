@@ -1,4 +1,4 @@
-package http.models;
+package http.models.one;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -12,16 +12,4 @@ public class Ad{
 
 	@SerializedName("url")
 	private String url;
-
-	public String getCompany(){
-		return company;
-	}
-
-	public String getText(){
-		return text;
-	}
-
-	public String getUrl(){
-		return url;
-	}
 }
